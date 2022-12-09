@@ -8,7 +8,7 @@ import random as r
 
 intents = Intents.all()
 
-//keep_alive()
+#keep_alive()
 
 client = commands.Bot(command_prefix='[]', intents=intents)
 
