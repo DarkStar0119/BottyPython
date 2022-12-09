@@ -5,6 +5,7 @@ from discord.ext import commands
 from keep_alive import keep_alive
 import data_access as data
 import random as r
+import tokens
 
 intents = Intents.all()
 
@@ -31,7 +32,7 @@ async def on_message(message):
     if ping == 69:
       await message.channel.send("No one expects The Spanish Inquisition!!!")
     elif 'spam' in message.content.lower():
-      await message.channel.send("https://tenor.com/view/monty-python-flying-circus-spam-gif-15349845")
+      await message.reply("https://tenor.com/view/monty-python-flying-circus-spam-gif-15349845")
     elif ping == 16:
       await message.channel.send(f'{message.author.mention} has been attacked by a 16 ton weight!!! https://i.gifer.com/Jcrv.gif')
   await client.process_commands(message)
@@ -64,8 +65,8 @@ async def addRoles(ctx, role: discord.Role, emote: str, group: str):
 async def on_raw_reaction_add(payload):
   if payload.user_id != client.user: 
     if str(payload.message_id) in list(groups.values()):
-      server = await client.get_guild(payload.guild_id)
-      user = await server.get_member(payload.user_id)
+      server = client.get_guild(payload.guild_id)
+      user = server.get_member(payload.user_id)
       role = discord.utils.get(server.roles, name=roles[str(payload.message_id)][str(payload.emoji)])
       await user.add_roles(role)
 
@@ -73,8 +74,8 @@ async def on_raw_reaction_add(payload):
 async def on_raw_reaction_remove(payload):
   if payload.user_id != client.user: 
     if str(payload.message_id) in list(groups.values()):
-      server = await client.get_guild(payload.guild_id)
-      user = await server.get_member(payload.user_id)
+      server = client.get_guild(payload.guild_id)
+      user = server.get_member(payload.user_id)
       role = discord.utils.get(server.roles, name=roles[str(payload.message_id)][str(payload.emoji)])
       await user.remove_roles(role)
-client.run(os.environ['TOKEN'])
+client.run(tokens.token)
