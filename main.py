@@ -24,13 +24,14 @@ async def on_ready():
   print(f'{client.user} has connected to Discord!')
   global rolesChannel
   rolesChannel = client.get_channel(stuff[0])
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Life of Brian"))
 
 @client.event
 async def on_message(message):
   if message.author != client.user:
     ping = r.randrange(100)
     if ping == 69:
-      await message.channel.send("No one expects The Spanish Inquisition!!!")
+      await message.reply("No one expects The Spanish Inquisition!!!")
     elif 'spam' in message.content.lower():
       await message.reply("https://tenor.com/view/monty-python-flying-circus-spam-gif-15349845")
     elif ping == 16:
