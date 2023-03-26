@@ -11,7 +11,8 @@ intents = Intents.all()
 
 #keep_alive()
 
-client = commands.Bot(command_prefix='[]', intents=intents)
+activity = discord.Activity(type=discord.ActivityType.playing, name="I Seek The Grail")
+client = commands.Bot(command_prefix='[]', intents=intents, activity=activity)
 
 stuff = data.loadData()
 rolesChannel = 0
@@ -24,7 +25,6 @@ async def on_ready():
   print(f'{client.user} has connected to Discord!')
   global rolesChannel
   rolesChannel = client.get_channel(stuff[0])
-  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Life of Brian"))
 
 @client.event
 async def on_message(message):
